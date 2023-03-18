@@ -2,14 +2,12 @@
 
 A World of Warcraft (1.12) addon that enhances the default user interface to be more controller friendly. This addon is made with the [SteamDeck](https://www.steamdeck.com/en/) in mind. If you don't use a SteamDeck you need to use another software to map controller buttons to keyboard buttons.
 
-> WARNING: This addon changes in-game keybinds to align with the SteamDeck's 'Keyboard (WASD) and Mouse' layout. If you run this addon on your PC, you might need to restore your old keybinds manually after.
-
 ![Overview](screenshots/overview.jpg)
 *(Addons used: ShaguController, ShaguTweaks, ShaguPlates, pfQuest)*
 
 ## Keybinding
 
-The addon sets in-game keybinds based on the button mappings provided by SteamDeck's "Keyboard (WASD) and Mouse"-Layout:
+The addon is build around in-game keybinds based on the button mappings provided by SteamDeck's "Keyboard (WASD) and Mouse"-Layout:
 ![Mapping](screenshots/mapping.jpg)
 
 * The A button is bound to jump
@@ -59,7 +57,7 @@ Open Steam Library and click on "[+] Add a Game" and select "Add a Non-Steam Gam
 Browse to your World of Warcraft Folder and select AutoLogin.exe. Then choose "Add Selected Programs".
 Find the "AutoLogin.exe" in your Steam Library and right click -> Properties.
 * Set the name to: World of Warcraft
-* Set the launch options: `Wow.exe account password 1000 --proton`  
+* Set the launch options: `Wow.exe account password 1000 --proton`
   - account: your account name
   - password: your account password
   - 1000: the delay it waits before entering your credentials
