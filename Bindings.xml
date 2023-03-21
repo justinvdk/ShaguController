@@ -1,7 +1,7 @@
 <Bindings>
   <!-- ShaguControl Custom Buttons -->
   <Binding name="SHAGUCONTROL0" runOnUp="true" header="SHAGUCONTROL">ShaguControlButton(0)</Binding>
-  
+
   <!-- UP: Inventory -->
   <Binding name="SHAGUCONTROL1" runOnUp="true">
     if ( keystate == "down" ) then
@@ -10,14 +10,14 @@
       OpenAllBags()
     end
   </Binding>
-  
+
   <!-- RIGHT: QuestLog -->
   <Binding name="SHAGUCONTROL2" runOnUp="true">
     if ( keystate == "down" ) then
       ToggleQuestLog()
     end
   </Binding>
-  
+
   <!-- DOWN: Talents & Social -->
   <Binding name="SHAGUCONTROL3" runOnUp="true">
     if ( keystate == "down" ) then
@@ -25,11 +25,38 @@
       ToggleFriendsFrame()
     end
   </Binding>
-  
+
   <!-- LEFT: Spellbook -->
   <Binding name="SHAGUCONTROL4" runOnUp="true">
     if ( keystate == "down" ) then
       ToggleSpellBook(BOOKTYPE_SPELL)
     end
   </Binding>
+
+  <Binding name="SHAGUCONTROL5" runOnUp="true">
+    if ( keystate == "down" ) then
+      local focus = GetMouseFocus();
+
+      DEFAULT_CHAT_FRAME:AddMessage("--------------------");
+      DEFAULT_CHAT_FRAME:AddMessage(focus:GetName());
+
+      local kiddos = { focus:GetChildren() };
+      for _, child in ipairs(kiddos) do
+          DEFAULT_CHAT_FRAME:AddMessage(child:GetName());
+      end
+    end
+  </Binding>
+
+  <Binding name="SHAGUCONTROL6" runOnUp="true">
+    if ( keystate == "down" ) then
+      local current = GetMouseFocus();
+
+      DEFAULT_CHAT_FRAME:AddMessage("--------------------");
+      while (current ~= nil) do
+        DEFAULT_CHAT_FRAME:AddMessage(current:GetName());
+        current = current:GetParent();
+      end
+    end
+  </Binding>
+
 </Bindings>

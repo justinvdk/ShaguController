@@ -52,19 +52,17 @@ for id, frame in pairs(textures) do hide(frame, 1) end
 -- clear some button textures
 for id, frame in pairs(normtextures) do hide(frame, 2) end
 
--- create a jump button
-ActionButtonJmp = CreateFrame("CheckButton", "ActionButtonJmp", MainMenuBarArtFrame, "ActionButtonTemplate")
-
 local ui = CreateFrame("Frame", "ShaguControllerUI", UIParent)
 ui:RegisterEvent("PLAYER_ENTERING_WORLD")
 ui:SetScript("OnEvent", function()
   -- update ui when frame positions get managed
   ui.manage_positions_hook = UIParent_ManageFramePositions
   UIParent_ManageFramePositions = ui.manage_positions
-  ui:UnregisterAllEvents()
+  -- ui:UnregisterAllEvents()
 end)
 
 ui.manage_button = function(self, frame, pos, x, y, image)
+  -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: manage_button.")
   if frame and tonumber(frame) then
     self:manage_button(_G["ActionButton" .. frame], pos, x, y, image)
     self:manage_button(_G["BonusActionButton" .. frame], pos, x, y, image)
@@ -113,53 +111,83 @@ ui.manage_button = function(self, frame, pos, x, y, image)
   end
 end
 
-ui.manage_jump_button = function(self, frame)
-  local icon = _G[frame:GetName().."Icon"]
-  local name = _G[frame:GetName().."Name"]
-
-  icon:Show()
-  icon:SetTexture("Interface\\Icons\\inv_gizmo_rocketboot_01")
-  icon.SetTexture = function() return end
-  icon.Hide = function() return end
-
-  name:SetPoint("BOTTOM", 0, 5)
-  name:SetText("Jump")
-  name.SetText = function() return end
-
-  frame:Show()
-  frame.Hide = function() return end
-  frame.GetID = function() return 0 end
-end
-
 local buttonmap = {
    -- dummy jump button
-   { ActionButtonJmp, "BOTTOMRIGHT", -220,  45, "Interface\\AddOns\\ShaguController\\img\\a" },
 
-   -- right controls
-   { 1, "BOTTOMRIGHT", -220, 135, "Interface\\AddOns\\ShaguController\\img\\y" },
-   { 2, "BOTTOMRIGHT", -265,  90, "Interface\\AddOns\\ShaguController\\img\\x" },
-   { 3, "BOTTOMRIGHT", -175,  90, "Interface\\AddOns\\ShaguController\\img\\b" },
-   { 4, "BOTTOMRIGHT", -220,  90, "" },
+   -- right controls (a,b,x,y)
+   { 1, "BOTTOMRIGHT", -220,  45, "Interface\\AddOns\\ShaguController\\img\\a" },
+   { 2, "BOTTOMRIGHT", -175,  90, "Interface\\AddOns\\ShaguController\\img\\b" },
+   { 3, "BOTTOMRIGHT", -265,  90, "Interface\\AddOns\\ShaguController\\img\\x" },
+   { 4, "BOTTOMRIGHT", -220, 135, "Interface\\AddOns\\ShaguController\\img\\y" },
+   -- right controls (r1,r2)
+   { 5, "BOTTOMRIGHT", -265, 150, "Interface\\AddOns\\ShaguController\\img\\up" },
+   { 6, "BOTTOMRIGHT", -270, 190, "Interface\\AddOns\\ShaguController\\img\\up" },
 
-   -- left controls
-   { 5, "BOTTOMLEFT",  220, 135, "Interface\\AddOns\\ShaguController\\img\\up" },
-   { 6, "BOTTOMLEFT",  220,  90, "" },
+   -- left controls (l1,l2)
+   { 7, "BOTTOMLEFT",  265,  150, "Interface\\AddOns\\ShaguController\\img\\up" },
+   { 8, "BOTTOMLEFT",  270,  190, "Interface\\AddOns\\ShaguController\\img\\up" },
 
-   -- This is my personal preference where the last 3 buttons of an actionbar
-   -- are usually mapped and mandatory skills for me. If you want to continue
-   -- the line, change this to 7,8,9 and change the disabled ones to 10,11,12.
-   -- also make sure to update the keybinds.lua accordingly.
-   { 10, "BOTTOMLEFT", 265,  90, "Interface\\AddOns\\ShaguController\\img\\right" },
-   { 11, "BOTTOMLEFT", 220,  45, "Interface\\AddOns\\ShaguController\\img\\down" },
-   { 12, "BOTTOMLEFT", 175,  90, "Interface\\AddOns\\ShaguController\\img\\left" },
-
-   -- disabled
-   { 7, "DISABLED" },
-   { 8, "DISABLED" },
-   { 9, "DISABLED" },
+   { 9,  "BOTTOMLEFT", 265, 90, "Interface\\AddOns\\ShaguController\\img\\right" },
+   { 10, "BOTTOMLEFT", 220, 45, "Interface\\AddOns\\ShaguController\\img\\down" },
+   { 11, "BOTTOMLEFT", 175, 90, "Interface\\AddOns\\ShaguController\\img\\left" },
+   { 12, "BOTTOMLEFT", 220, 135, "Interface\\AddOns\\ShaguController\\img\\up" },
 }
 
 ui.manage_positions = function(a1, a2, a3)
+  DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: manage_positions.")
+
+  -- bla = QuestLogMicroButton:GetParent()
+
+  -- bla:ClearAllPoints()
+  -- bla:SetPoint("LEFT", UIParent, "LEFT", 0, 0)
+  -- bla:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 0)
+
+  -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: "..bla:GetName())
+
+  -- jk
+  -- MainMenuBarArtFrame:ClearAllPoints()
+  -- MainMenuBarArtFrame:SetPoint("LEFT", UIParent, "LEFT", 0, 0)
+  -- -- MainMenuBarArtFrame:SetPoint("RIGHT", UIParent, "RIGHT", 0, 0)
+  -- MainMenuBarArtFrame:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 0)
+
+
+
+  -- MainMenuBarLeftEndCap:Hide();
+  -- MainMenuBarRightEndCap:Hide();
+
+  -- MainMenuBarArtFrame
+
+  DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..MainMenuBarLeftEndCap:GetNumPoints());
+  -- local a,b,c,d,e = MainMenuBarLeftEndCap:GetPoint(1);
+  -- DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..a);
+  -- DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..b:GetName());
+  -- DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..c);
+  -- DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..d);
+  -- DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..e);
+
+  -- if MainMenuBarLeftEndCap:GetNumPoints() == 2 then
+  --   local a,b,c,d,e = MainMenuBarLeftEndCap:GetPoint(2);
+  --   DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..a);
+  --   DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..b:GetName());
+  --   DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..c);
+  --   DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..d);
+  --   DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..e);
+  -- end
+  -- MainMenuBarLeftEndCap:ClearAllPoints();
+  -- MainMenuBarLeftEndCap:SetPoint("RIGHT", MainMenuBarPerformanceBarFrame, "LEFT", 30, 30);
+  -- MainMenuBarLeftEndCap:SetPoint("BOTTOM", MainMenuBarPerformanceBarFrame, "BOTTOM", 0, 0);
+  -- MainMenuBarLeftEndCap:ClearAllPoints();
+  -- MainMenuBarLeftEndCap:SetPoint("CENTER", UIParent, "CENTER", 30, 30);
+
+  -- MainMenuExpBar:ClearAllPoints();
+  -- MainMenuExpBar:SetPoint("TOP", UIParent, "BOTTOM", 0, 10);
+  -- MainMenuExpBar:SetPoint("BOTTOM", UIParent, "BOTTOM");
+  -- MainMenuExpBar:SetPoint("LEFT", MainMenuBar, "RIGHT");
+  -- MainMenuExpBar:SetPoint("RIGHT", MainMenuBarPerformanceBarFrame, "LEFT");
+
+  -- MainMenuBarLeftEndCap:SetPoint("RIGHT", UIParent, "CENTER", 0, 0)
+  -- MainMenuBarLeftEndCap:SetPoint("BOTTOM", UIParent, "RIGHT", 0, -14)
+
   -- run original function first
   ui.manage_positions_hook(a1, a2, a3)
 
@@ -167,9 +195,6 @@ ui.manage_positions = function(a1, a2, a3)
   for id, button in pairs(buttonmap) do
     ui:manage_button(unpack(button))
   end
-
-  -- skin jump button
-  ui:manage_jump_button(ActionButtonJmp)
 
   -- move and resize chat
   ChatFrameEditBox:ClearAllPoints()
@@ -192,16 +217,21 @@ ui.manage_positions = function(a1, a2, a3)
 
   ChatFrame1.oskHelper:SetScript("OnUpdate", function()
     if ChatFrameEditBox:IsVisible() and this.state ~= 1 then
+      -- put chat on top part of screen
+      DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Showing chat on top part of srceen.")
+
       ChatFrame1:SetScale(2)
       ChatFrame1:ClearAllPoints()
       ChatFrame1:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
       ChatFrame1:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", 0, -14)
 
-      FCF_SetWindowColor(ChatFrame1, 0,0,0)
+      FCF_SetWindowColor(ChatFrame1, 0, 0, 0)
       FCF_SetWindowAlpha(ChatFrame1, .5)
 
       this.state = 1
     elseif not ChatFrameEditBox:IsVisible() and this.state ~= 0 then
+      DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Reverting chat to bottom part of srceen.")
+
       local anchor = MainMenuBarArtFrame
       anchor = MultiBarBottomLeft:IsVisible() and MultiBarBottomLeft or anchor
       anchor = MultiBarBottomRight:IsVisible() and MultiBarBottomRight or anchor
@@ -212,13 +242,20 @@ ui.manage_positions = function(a1, a2, a3)
       ChatFrame1:ClearAllPoints()
       ChatFrame1:SetPoint("LEFT", MultiBarBottomLeft, "LEFT", 17, 0)
       ChatFrame1:SetPoint("RIGHT", MultiBarBottomLeft, "RIGHT", -17, 0)
+      -- ChatFrame1:SetPoint("BOTTOM", anchor, "TOP", 0, 13)
       ChatFrame1:SetPoint("BOTTOM", anchor, "TOP", 0, 13)
-      ChatFrame1:SetPoint("TOP", UIParent, "CENTER", 0, -200)
+      ChatFrame1:SetPoint("TOP", anchor, "TOP", 0, 200)
 
-      FCF_SetWindowColor(ChatFrame1, 0,0,0)
+      FCF_SetWindowColor(ChatFrame1, 0, 0, 0)
       FCF_SetWindowAlpha(ChatFrame1, 0)
 
       this.state = 0
+    else
+      -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: No doing anything.")
+      ChatFrame1:ClearAllPoints()
+      ChatFrame1:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
+      ChatFrame1:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", 0, -14)
+
     end
   end)
 
@@ -227,14 +264,16 @@ ui.manage_positions = function(a1, a2, a3)
   ChatFrameMenuButton.Show = function() return end
 
   for i=1, NUM_CHAT_WINDOWS do
+    _G["ChatFrame"..i.."BottomButton"]:ClearAllPoints()
+    _G["ChatFrame"..i.."BottomButton"]:SetPoint("BOTTOMRIGHT", _G["ChatFrame"..i], "BOTTOMRIGHT", 0, -5)
+
+
     _G["ChatFrame"..i.."DownButton"]:ClearAllPoints()
-    _G["ChatFrame"..i.."DownButton"]:SetPoint("BOTTOMRIGHT", _G["ChatFrame"..i], "BOTTOMRIGHT", 0, -5)
+    _G["ChatFrame"..i.."DownButton"]:SetPoint("RIGHT", _G["ChatFrame"..i.."BottomButton"], "LEFT", 0, 0)
 
     _G["ChatFrame"..i.."UpButton"]:ClearAllPoints()
     _G["ChatFrame"..i.."UpButton"]:SetPoint("RIGHT", _G["ChatFrame"..i.."DownButton"], "LEFT", 0, 0)
 
-    _G["ChatFrame"..i.."BottomButton"]:Hide()
-    _G["ChatFrame"..i.."BottomButton"].Show = function() return end
   end
 
   -- move pet action bar
@@ -254,10 +293,12 @@ ui.manage_positions = function(a1, a2, a3)
 
   -- move normal action bars
   MultiBarBottomLeft:ClearAllPoints()
-  MultiBarBottomLeft:SetPoint("BOTTOM", MainMenuBar, "TOP", 0, 20)
+  MultiBarBottomLeft:SetPoint("LEFT", UIParent, "LEFT", 5, 0)
+  MultiBarBottomLeft:SetPoint("BOTTOM", HelpMicroButton, "TOP", 0, 20)
 
   MultiBarBottomRight:ClearAllPoints()
-  MultiBarBottomRight:SetPoint("BOTTOM", MultiBarBottomLeft, "TOP", 0, 5)
+  MultiBarBottomRight:SetPoint("RIGHT", UIParent, "RIGHT", 5, 0)
+  MultiBarBottomRight:SetPoint("BOTTOM", HelpMicroButton, "TOP", 0, 20)
 
   -- experience bar
   MainMenuXPBarTexture0:SetPoint("LEFT", MainMenuExpBar, "LEFT")
@@ -270,16 +311,25 @@ ui.manage_positions = function(a1, a2, a3)
 
   -- move elements for reduced actionbar size
   MainMenuMaxLevelBar0:SetPoint("LEFT", MainMenuBarArtFrame, "LEFT")
+  MainMenuBarTexture2:Hide();
+  MainMenuBarTexture3:Hide();
   MainMenuBarTexture2:SetPoint("LEFT", MainMenuBarArtFrame, "LEFT")
   MainMenuBarTexture3:SetPoint("RIGHT", MainMenuBarArtFrame, "RIGHT")
 
   ActionBarDownButton:SetPoint("BOTTOMLEFT", MainMenuBarArtFrame, "BOTTOMLEFT", -5, -5)
   ActionBarUpButton:SetPoint("TOPLEFT", MainMenuBarArtFrame, "TOPLEFT", -5, -5)
   MainMenuBarPageNumber:SetPoint("LEFT", MainMenuBarArtFrame, "LEFT", 25, -5)
-  CharacterMicroButton:SetPoint("LEFT", MainMenuBarArtFrame, "LEFT", 38, 0)
+  CharacterMicroButton:SetPoint("LEFT", UIParent, "LEFT", 0, 0)
 
-  MainMenuBarLeftEndCap:SetPoint("RIGHT", MainMenuBarArtFrame, "LEFT", 30, 0)
-  MainMenuBarRightEndCap:SetPoint("LEFT", MainMenuBarArtFrame, "RIGHT", -30, 0)
+  -- latency thingy
+  MainMenuBarPerformanceBarFrame:SetPoint("RIGHT", KeyRingButton, "LEFT", 0, 0)
+
+  -- bags
+  MainMenuBarBackpackButton:SetPoint("RIGHT", UIParent, "RIGHT", 0, 0)
+
+  -- griphons
+  MainMenuBarLeftEndCap:SetPoint("RIGHT", MainMenuBarPerformanceBarFrame, "LEFT", 25, 0)
+  MainMenuBarRightEndCap:SetPoint("LEFT", HelpMicroButton, "RIGHT", -25, 0)
 
   -- move pfQuest arrow if existing
   if pfQuest and pfQuest.route and pfQuest.route.arrow then
