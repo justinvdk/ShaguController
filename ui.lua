@@ -41,7 +41,7 @@ local function hide(frame, texture)
 end
 
 -- reduce actionbar size
-for id, frame in pairs(resizes) do frame:SetWidth(488) end
+for id, frame in pairs(resizes) do frame:SetWidth(770) end
 
   -- hide reduced frames
 for id, frame in pairs(frames) do hide(frame) end
@@ -111,26 +111,41 @@ ui.manage_button = function(self, frame, pos, x, y, image)
   end
 end
 
+local a_x, a_y   = -220,  50
+local b_x, b_y   = -180,  90
+local x_x, x_y   = -260,  90
+local y_x, y_y   = -220, 130
+local r1_x, r1_y = -265, 150
+local r2_x, r2_y = -310, 150
+
+offset = -225
+a_x = a_x + offset
+b_x = b_x + offset
+x_x = x_x + offset
+y_x = y_x + offset
+r1_x = r1_x + offset
+r2_x = r2_x + offset
+
 local buttonmap = {
    -- dummy jump button
 
    -- right controls (a,b,x,y)
-   { 1, "BOTTOMRIGHT", -220,  45, "Interface\\AddOns\\ShaguController\\img\\a" },
-   { 2, "BOTTOMRIGHT", -175,  90, "Interface\\AddOns\\ShaguController\\img\\b" },
-   { 3, "BOTTOMRIGHT", -265,  90, "Interface\\AddOns\\ShaguController\\img\\x" },
-   { 4, "BOTTOMRIGHT", -220, 135, "Interface\\AddOns\\ShaguController\\img\\y" },
+   { 1, "BOTTOMRIGHT", a_x, a_y, "Interface\\AddOns\\ShaguController\\img\\a" },
+   { 2, "BOTTOMRIGHT", b_x, b_y, "Interface\\AddOns\\ShaguController\\img\\b" },
+   { 3, "BOTTOMRIGHT", x_x, x_y, "Interface\\AddOns\\ShaguController\\img\\x" },
+   { 4, "BOTTOMRIGHT", y_x, y_y, "Interface\\AddOns\\ShaguController\\img\\y" },
    -- right controls (r1,r2)
-   { 5, "BOTTOMRIGHT", -265, 150, "Interface\\AddOns\\ShaguController\\img\\up" },
-   { 6, "BOTTOMRIGHT", -270, 190, "Interface\\AddOns\\ShaguController\\img\\up" },
+   { 5, "BOTTOMRIGHT", r1_x, r1_y, "Interface\\AddOns\\ShaguController\\img\\up" },
+   { 6, "BOTTOMRIGHT", r2_x, r2_y, "Interface\\AddOns\\ShaguController\\img\\down" },
 
    -- left controls (l1,l2)
-   { 7, "BOTTOMLEFT",  265,  150, "Interface\\AddOns\\ShaguController\\img\\up" },
-   { 8, "BOTTOMLEFT",  270,  190, "Interface\\AddOns\\ShaguController\\img\\up" },
+   { 7, "BOTTOMLEFT",  -r1_x, r1_y, "Interface\\AddOns\\ShaguController\\img\\up" },
+   { 8, "BOTTOMLEFT",  -r2_x, r2_y, "Interface\\AddOns\\ShaguController\\img\\down" },
 
-   { 9,  "BOTTOMLEFT", 265, 90, "Interface\\AddOns\\ShaguController\\img\\right" },
-   { 10, "BOTTOMLEFT", 220, 45, "Interface\\AddOns\\ShaguController\\img\\down" },
-   { 11, "BOTTOMLEFT", 175, 90, "Interface\\AddOns\\ShaguController\\img\\left" },
-   { 12, "BOTTOMLEFT", 220, 135, "Interface\\AddOns\\ShaguController\\img\\up" },
+   { 9,  "BOTTOMLEFT", -x_x, x_y, "Interface\\AddOns\\ShaguController\\img\\right" },
+   { 10, "BOTTOMLEFT", -a_x, a_y, "Interface\\AddOns\\ShaguController\\img\\down" },
+   { 11, "BOTTOMLEFT", -b_x, b_y, "Interface\\AddOns\\ShaguController\\img\\left" },
+   { 12, "BOTTOMLEFT", -y_x, y_y, "Interface\\AddOns\\ShaguController\\img\\up" },
 }
 
 ui.manage_positions = function(a1, a2, a3)
@@ -233,15 +248,18 @@ ui.manage_positions = function(a1, a2, a3)
       DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Reverting chat to bottom part of srceen.")
 
       local anchor = MainMenuBarArtFrame
-      anchor = MultiBarBottomLeft:IsVisible() and MultiBarBottomLeft or anchor
       anchor = MultiBarBottomRight:IsVisible() and MultiBarBottomRight or anchor
+      anchor = MultiBarBottomLeft:IsVisible() and MultiBarBottomLeft or anchor
       anchor = ShapeshiftBarFrame:IsVisible() and ShapeshiftBarFrame or anchor
       anchor = PetActionBarFrame:IsVisible() and PetActionBarFrame or anchor
 
+
+      DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Anchoring to: "..anchor:GetName())
+
       ChatFrame1:SetScale(1)
       ChatFrame1:ClearAllPoints()
-      ChatFrame1:SetPoint("LEFT", MultiBarBottomLeft, "LEFT", 17, 0)
-      ChatFrame1:SetPoint("RIGHT", MultiBarBottomLeft, "RIGHT", -17, 0)
+      ChatFrame1:SetPoint("LEFT", MultiBarBottomLeft, "LEFT", 0, 0)
+      ChatFrame1:SetPoint("RIGHT", MultiBarBottomLeft, "RIGHT", 0, 0)
       -- ChatFrame1:SetPoint("BOTTOM", anchor, "TOP", 0, 13)
       ChatFrame1:SetPoint("BOTTOM", anchor, "TOP", 0, 13)
       ChatFrame1:SetPoint("TOP", anchor, "TOP", 0, 200)
@@ -252,10 +270,9 @@ ui.manage_positions = function(a1, a2, a3)
       this.state = 0
     else
       -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: No doing anything.")
-      ChatFrame1:ClearAllPoints()
-      ChatFrame1:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
-      ChatFrame1:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", 0, -14)
-
+      -- ChatFrame1:ClearAllPoints()
+      -- ChatFrame1:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
+      -- ChatFrame1:SetPoint("BOTTOMRIGHT", UIParent, "RIGHT", 0, -14)
     end
   end)
 
@@ -294,42 +311,60 @@ ui.manage_positions = function(a1, a2, a3)
   -- move normal action bars
   MultiBarBottomLeft:ClearAllPoints()
   MultiBarBottomLeft:SetPoint("LEFT", UIParent, "LEFT", 5, 0)
-  MultiBarBottomLeft:SetPoint("BOTTOM", HelpMicroButton, "TOP", 0, 20)
+  MultiBarBottomLeft:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 51)
+  MultiBarBottomLeft:SetScale(0.9)
 
   MultiBarBottomRight:ClearAllPoints()
-  MultiBarBottomRight:SetPoint("RIGHT", UIParent, "RIGHT", 5, 0)
-  MultiBarBottomRight:SetPoint("BOTTOM", HelpMicroButton, "TOP", 0, 20)
+  MultiBarBottomRight:SetPoint("RIGHT", UIParent, "RIGHT", -5, 0)
+  MultiBarBottomRight:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 51)
+  MultiBarBottomRight:SetScale(0.9)
 
   -- experience bar
+  MainMenuExpBar:SetPoint("BOTTOM", UIParent, "BOTTOM")
+  MainMenuExpBar:SetPoint("TOP", UIParent, "BOTTOM", 0, 10)
   MainMenuXPBarTexture0:SetPoint("LEFT", MainMenuExpBar, "LEFT")
+  MainMenuXPBarTexture0:SetPoint("RIGHT", MainMenuExpBar, "CENTER")
   MainMenuXPBarTexture1:SetPoint("RIGHT", MainMenuExpBar, "RIGHT")
+  MainMenuXPBarTexture1:SetPoint("LEFT", MainMenuExpBar, "CENTER")
 
   -- reputation bar
   ReputationWatchBar:SetPoint("BOTTOM", MainMenuExpBar, "TOP", 0, 0)
   ReputationWatchBarTexture0:SetPoint("LEFT", ReputationWatchBar, "LEFT")
+  ReputationWatchBarTexture0:SetPoint("RIGHT", ReputationWatchBar, "CENTER")
   ReputationWatchBarTexture1:SetPoint("RIGHT", ReputationWatchBar, "RIGHT")
+  ReputationWatchBarTexture1:SetPoint("LEFT", ReputationWatchBar, "CENTER", 0, 2)
 
   -- move elements for reduced actionbar size
   MainMenuMaxLevelBar0:SetPoint("LEFT", MainMenuBarArtFrame, "LEFT")
-  MainMenuBarTexture2:Hide();
-  MainMenuBarTexture3:Hide();
-  MainMenuBarTexture2:SetPoint("LEFT", MainMenuBarArtFrame, "LEFT")
-  MainMenuBarTexture3:SetPoint("RIGHT", MainMenuBarArtFrame, "RIGHT")
+  -- MainMenuBarTexture2:Hide();
+  MainMenuBarTexture2:SetPoint("LEFT", UIParent, "LEFT")
+  MainMenuBarTexture3:SetPoint("RIGHT", UIParent, "RIGHT")
 
-  ActionBarDownButton:SetPoint("BOTTOMLEFT", MainMenuBarArtFrame, "BOTTOMLEFT", -5, -5)
-  ActionBarUpButton:SetPoint("TOPLEFT", MainMenuBarArtFrame, "TOPLEFT", -5, -5)
-  MainMenuBarPageNumber:SetPoint("LEFT", MainMenuBarArtFrame, "LEFT", 25, -5)
-  CharacterMicroButton:SetPoint("LEFT", UIParent, "LEFT", 0, 0)
+  ActionBarDownButton:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", -7, -5)
+  ActionBarUpButton:SetPoint("BOTTOMLEFT", ActionBarDownButton, "TOPLEFT", 0, -13)
+  MainMenuBarPageNumber:ClearAllPoints()
+  MainMenuBarPageNumber:SetPoint("BOTTOMLEFT", ActionBarDownButton, "TOPRIGHT", 0, -10)
+  CharacterMicroButton:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 37, 3)
+  -- CharacterMicroButton:SetPoint("BOTTOM", UIParent, "LEFT", 35, 0)
 
   -- latency thingy
   MainMenuBarPerformanceBarFrame:SetPoint("RIGHT", KeyRingButton, "LEFT", 0, 0)
 
   -- bags
-  MainMenuBarBackpackButton:SetPoint("RIGHT", UIParent, "RIGHT", 0, 0)
+  MainMenuBarBackpackButton:SetPoint("RIGHT", UIParent, "RIGHT", -6, 0)
+  MainMenuBarBackpackButton:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 4)
 
   -- griphons
   MainMenuBarLeftEndCap:SetPoint("RIGHT", MainMenuBarPerformanceBarFrame, "LEFT", 25, 0)
   MainMenuBarRightEndCap:SetPoint("LEFT", HelpMicroButton, "RIGHT", -25, 0)
+  MainMenuBarLeftEndCap:Hide()
+  MainMenuBarRightEndCap:Hide()
+
+  for _, child in ipairs({ MainMenuBar:GetChildren() }) do
+      DEFAULT_CHAT_FRAME:AddMessage(child:GetName());
+      child:SetParent(UIParent)
+  end
+  MainMenuBar:Hide()
 
   -- move pfQuest arrow if existing
   if pfQuest and pfQuest.route and pfQuest.route.arrow then
