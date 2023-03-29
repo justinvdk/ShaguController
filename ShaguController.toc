@@ -1,5 +1,5 @@
 ## Interface: 11200
-## Title: |cffffcc00Shagu|cffffffffController
+## Title: |cffffcc00Shagu|cffffffffController |c00e1ff00(Justin)
 ## Author: Shagu
 ## Notes: Adds a basic controller compatible UI and bindings
 ## SavedVariablesPerCharacter: ShaguControllerConfig
