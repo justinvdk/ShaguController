@@ -61,11 +61,11 @@ ui:SetScript("OnEvent", function()
   -- ui:UnregisterAllEvents()
 end)
 
-ui.manage_button = function(self, frame, pos, x, y, image)
+ui.manage_button = function(self, frame, pos, x, y, image, image_pos)
   -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: manage_button.")
   if frame and tonumber(frame) then
-    self:manage_button(_G["ActionButton" .. frame], pos, x, y, image)
-    self:manage_button(_G["BonusActionButton" .. frame], pos, x, y, image)
+    self:manage_button(_G["ActionButton" .. frame], pos, x, y, image, image_pos)
+    self:manage_button(_G["BonusActionButton" .. frame], pos, x, y, image, image_pos)
     return
   end
 
@@ -94,7 +94,7 @@ ui.manage_button = function(self, frame, pos, x, y, image)
 
     frame.keybind_icon.tex = frame.keybind_icon:CreateTexture(nil, "OVERLAY")
     frame.keybind_icon.tex:SetTexture(image)
-    frame.keybind_icon.tex:SetPoint("TOPRIGHT", frame.keybind_icon, "TOPRIGHT", 0, 0)
+    frame.keybind_icon.tex:SetPoint(image_pos, frame.keybind_icon, image_pos, 0, 0)
     frame.keybind_icon.tex:SetWidth(16)
     frame.keybind_icon.tex:SetHeight(16)
 
@@ -115,10 +115,10 @@ local a_x, a_y   = -220,  50
 local b_x, b_y   = -180,  90
 local x_x, x_y   = -260,  90
 local y_x, y_y   = -220, 130
-local r1_x, r1_y = -265, 150
-local r2_x, r2_y = -310, 150
+local r1_x, r1_y = -260, 150
+local r2_x, r2_y = -300, 150
 
-offset = -225
+offset = -215
 a_x = a_x + offset
 b_x = b_x + offset
 x_x = x_x + offset
@@ -147,7 +147,7 @@ local buttonmap = {
 }
 
 ui.manage_positions = function(a1, a2, a3)
-  DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: manage_positions.")
+  -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: manage_positions.")
 
   -- bla = QuestLogMicroButton:GetParent()
 
@@ -170,7 +170,7 @@ ui.manage_positions = function(a1, a2, a3)
 
   -- MainMenuBarArtFrame
 
-  DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..MainMenuBarLeftEndCap:GetNumPoints());
+  -- DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..MainMenuBarLeftEndCap:GetNumPoints());
   -- local a,b,c,d,e = MainMenuBarLeftEndCap:GetPoint(1);
   -- DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..a);
   -- DEFAULT_CHAT_FRAME:AddMessage("--------------------: "..b:GetName());
@@ -231,7 +231,7 @@ ui.manage_positions = function(a1, a2, a3)
   ChatFrame1.oskHelper:SetScript("OnUpdate", function()
     if ChatFrameEditBox:IsVisible() and this.state ~= 1 then
       -- put chat on top part of screen
-      DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Showing chat on top part of srceen.")
+      -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Showing chat on top part of srceen.")
 
       ChatFrame1:SetScale(2)
       ChatFrame1:ClearAllPoints()
@@ -243,7 +243,7 @@ ui.manage_positions = function(a1, a2, a3)
 
       this.state = 1
     elseif not ChatFrameEditBox:IsVisible() and this.state ~= 0 then
-      DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Reverting chat to bottom part of srceen.")
+      -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Reverting chat to bottom part of srceen.")
 
       local anchor = MainMenuBarArtFrame
       anchor = MultiBarBottomRight:IsVisible() and MultiBarBottomRight or anchor
@@ -251,8 +251,7 @@ ui.manage_positions = function(a1, a2, a3)
       anchor = ShapeshiftBarFrame:IsVisible() and ShapeshiftBarFrame or anchor
       anchor = PetActionBarFrame:IsVisible() and PetActionBarFrame or anchor
 
-
-      DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Anchoring to: "..anchor:GetName())
+      -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Anchoring to: "..anchor:GetName())
 
       ChatFrame1:SetScale(1)
       ChatFrame1:ClearAllPoints()
@@ -288,8 +287,20 @@ ui.manage_positions = function(a1, a2, a3)
 
     _G["ChatFrame"..i.."UpButton"]:ClearAllPoints()
     _G["ChatFrame"..i.."UpButton"]:SetPoint("RIGHT", _G["ChatFrame"..i.."DownButton"], "LEFT", 0, 0)
-
   end
+
+  -- Remove stuff from mainmenubar
+  for _, child in ipairs({ MainMenuBar:GetChildren() }) do
+    child:SetParent(UIParent)
+  end
+  MainMenuBar:Hide()
+
+  -- Move cast bar
+  CastingBarFrame:ClearAllPoints()
+  CastingBarFrame:SetPoint("TOP", ActionButton6, "BOTTOM", 0, -10)
+  CastingBarFrame:SetPoint("RIGHT", ActionButton4, "LEFT", 0, 0)
+  -- CastingBarFrame:SetPoint("LEFT", ActionButton8, "BOTTOM", 0, -10)
+  -- CastingBarFrame:SetPoint("CENTER", UIParent, "CENTER", -50, 0)
 
   -- move pet action bar
   local anchor = MainMenuBarArtFrame
@@ -326,7 +337,9 @@ ui.manage_positions = function(a1, a2, a3)
   MainMenuXPBarTexture1:SetPoint("LEFT", MainMenuExpBar, "CENTER")
 
   -- reputation bar
-  ReputationWatchBar:SetPoint("BOTTOM", MainMenuExpBar, "TOP", 0, 0)
+  -- Its being problematic somehow.
+  ReputationWatchBar:Hide()
+  ReputationWatchBar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 0)
   ReputationWatchBarTexture0:SetPoint("LEFT", ReputationWatchBar, "LEFT")
   ReputationWatchBarTexture0:SetPoint("RIGHT", ReputationWatchBar, "CENTER")
   ReputationWatchBarTexture1:SetPoint("RIGHT", ReputationWatchBar, "RIGHT")
@@ -357,12 +370,6 @@ ui.manage_positions = function(a1, a2, a3)
   MainMenuBarRightEndCap:SetPoint("LEFT", HelpMicroButton, "RIGHT", -25, 0)
   MainMenuBarLeftEndCap:Hide()
   MainMenuBarRightEndCap:Hide()
-
-  for _, child in ipairs({ MainMenuBar:GetChildren() }) do
-      DEFAULT_CHAT_FRAME:AddMessage(child:GetName());
-      child:SetParent(UIParent)
-  end
-  MainMenuBar:Hide()
 
   -- move pfQuest arrow if existing
   if pfQuest and pfQuest.route and pfQuest.route.arrow then
