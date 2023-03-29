@@ -115,8 +115,8 @@ local a_x, a_y   = -220,  50
 local b_x, b_y   = -180,  90
 local x_x, x_y   = -260,  90
 local y_x, y_y   = -220, 130
-local r1_x, r1_y = -260, 150
-local r2_x, r2_y = -300, 150
+local r1_x, r1_y = -300, 150
+local r2_x, r2_y = -260, 150
 
 offset = -215
 a_x = a_x + offset
@@ -133,12 +133,12 @@ local buttonmap = {
    { 3, "BOTTOMRIGHT", x_x, x_y, "Interface\\AddOns\\ShaguController\\img\\x", "BOTTOMRIGHT" },
    { 4, "BOTTOMRIGHT", y_x, y_y, "Interface\\AddOns\\ShaguController\\img\\y", "BOTTOMRIGHT" },
    -- right controls (r1,r2)
-   { 5, "BOTTOMRIGHT", r1_x, r1_y, "Interface\\AddOns\\ShaguController\\img\\r1", "BOTTOMLEFT" },
-   { 6, "BOTTOMRIGHT", r2_x, r2_y, "Interface\\AddOns\\ShaguController\\img\\r2", "BOTTOMRIGHT" },
+   { 5, "BOTTOMRIGHT", r1_x, r1_y, "Interface\\AddOns\\ShaguController\\img\\r1", "BOTTOMRIGHT" },
+   { 6, "BOTTOMRIGHT", r2_x, r2_y, "Interface\\AddOns\\ShaguController\\img\\r2", "BOTTOMLEFT" },
 
    -- left controls (l1,l2)
-   { 7, "BOTTOMLEFT",  -r1_x, r1_y, "Interface\\AddOns\\ShaguController\\img\\l1", "BOTTOMRIGHT" },
-   { 8, "BOTTOMLEFT",  -r2_x, r2_y, "Interface\\AddOns\\ShaguController\\img\\l2", "BOTTOMLEFT" },
+   { 7, "BOTTOMLEFT",  -r1_x, r1_y, "Interface\\AddOns\\ShaguController\\img\\l1", "BOTTOMLEFT" },
+   { 8, "BOTTOMLEFT",  -r2_x, r2_y, "Interface\\AddOns\\ShaguController\\img\\l2", "BOTTOMRIGHT" },
 
    { 9,  "BOTTOMLEFT", -x_x, x_y, "Interface\\AddOns\\ShaguController\\img\\right", "BOTTOMLEFT" },
    { 10, "BOTTOMLEFT", -a_x, a_y, "Interface\\AddOns\\ShaguController\\img\\down", "BOTTOMLEFT" },
