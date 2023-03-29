@@ -127,25 +127,23 @@ r1_x = r1_x + offset
 r2_x = r2_x + offset
 
 local buttonmap = {
-   -- dummy jump button
-
    -- right controls (a,b,x,y)
-   { 1, "BOTTOMRIGHT", a_x, a_y, "Interface\\AddOns\\ShaguController\\img\\a" },
-   { 2, "BOTTOMRIGHT", b_x, b_y, "Interface\\AddOns\\ShaguController\\img\\b" },
-   { 3, "BOTTOMRIGHT", x_x, x_y, "Interface\\AddOns\\ShaguController\\img\\x" },
-   { 4, "BOTTOMRIGHT", y_x, y_y, "Interface\\AddOns\\ShaguController\\img\\y" },
+   { 1, "BOTTOMRIGHT", a_x, a_y, "Interface\\AddOns\\ShaguController\\img\\a", "BOTTOMRIGHT" },
+   { 2, "BOTTOMRIGHT", b_x, b_y, "Interface\\AddOns\\ShaguController\\img\\b", "BOTTOMRIGHT" },
+   { 3, "BOTTOMRIGHT", x_x, x_y, "Interface\\AddOns\\ShaguController\\img\\x", "BOTTOMRIGHT" },
+   { 4, "BOTTOMRIGHT", y_x, y_y, "Interface\\AddOns\\ShaguController\\img\\y", "BOTTOMRIGHT" },
    -- right controls (r1,r2)
-   { 5, "BOTTOMRIGHT", r1_x, r1_y, "Interface\\AddOns\\ShaguController\\img\\up" },
-   { 6, "BOTTOMRIGHT", r2_x, r2_y, "Interface\\AddOns\\ShaguController\\img\\down" },
+   { 5, "BOTTOMRIGHT", r1_x, r1_y, "Interface\\AddOns\\ShaguController\\img\\r1", "BOTTOMLEFT" },
+   { 6, "BOTTOMRIGHT", r2_x, r2_y, "Interface\\AddOns\\ShaguController\\img\\r2", "BOTTOMRIGHT" },
 
    -- left controls (l1,l2)
-   { 7, "BOTTOMLEFT",  -r1_x, r1_y, "Interface\\AddOns\\ShaguController\\img\\up" },
-   { 8, "BOTTOMLEFT",  -r2_x, r2_y, "Interface\\AddOns\\ShaguController\\img\\down" },
+   { 7, "BOTTOMLEFT",  -r1_x, r1_y, "Interface\\AddOns\\ShaguController\\img\\l1", "BOTTOMRIGHT" },
+   { 8, "BOTTOMLEFT",  -r2_x, r2_y, "Interface\\AddOns\\ShaguController\\img\\l2", "BOTTOMLEFT" },
 
-   { 9,  "BOTTOMLEFT", -x_x, x_y, "Interface\\AddOns\\ShaguController\\img\\right" },
-   { 10, "BOTTOMLEFT", -a_x, a_y, "Interface\\AddOns\\ShaguController\\img\\down" },
-   { 11, "BOTTOMLEFT", -b_x, b_y, "Interface\\AddOns\\ShaguController\\img\\left" },
-   { 12, "BOTTOMLEFT", -y_x, y_y, "Interface\\AddOns\\ShaguController\\img\\up" },
+   { 9,  "BOTTOMLEFT", -x_x, x_y, "Interface\\AddOns\\ShaguController\\img\\right", "BOTTOMLEFT" },
+   { 10, "BOTTOMLEFT", -a_x, a_y, "Interface\\AddOns\\ShaguController\\img\\down", "BOTTOMLEFT" },
+   { 11, "BOTTOMLEFT", -b_x, b_y, "Interface\\AddOns\\ShaguController\\img\\left", "BOTTOMLEFT" },
+   { 12, "BOTTOMLEFT", -y_x, y_y, "Interface\\AddOns\\ShaguController\\img\\up", "BOTTOMLEFT" },
 }
 
 ui.manage_positions = function(a1, a2, a3)
