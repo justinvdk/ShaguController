@@ -241,6 +241,8 @@ ui.manage_positions = function(a1, a2, a3)
       FCF_SetWindowColor(ChatFrame1, 0, 0, 0)
       FCF_SetWindowAlpha(ChatFrame1, .5)
 
+      ChatFrame1.oskHelper:EnableMouse(true)
+
       this.state = 1
     elseif not ChatFrameEditBox:IsVisible() and this.state ~= 0 then
       -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00Shagu|cffffffffController: Reverting chat to bottom part of srceen.")
@@ -263,6 +265,8 @@ ui.manage_positions = function(a1, a2, a3)
 
       FCF_SetWindowColor(ChatFrame1, 0, 0, 0)
       FCF_SetWindowAlpha(ChatFrame1, 0)
+
+      ChatFrame1.oskHelper:EnableMouse(false)
 
       this.state = 0
     else
@@ -294,6 +298,17 @@ ui.manage_positions = function(a1, a2, a3)
     child:SetParent(UIParent)
   end
   MainMenuBar:Hide()
+
+  -- BonusActionBarButtons are inside a parent that. Outright hiding this frame causes
+  -- keybinds not to work for classes that use it. Disabling mouse works just fine.
+  BonusActionBarFrame:EnableMouse(false)
+  -- BonusActionBarFrame:SetBackdrop({
+  --   bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+  --   edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+  --   edgeSize = 16,
+  --   insets = { left = 4, right = 4, top = 4, bottom = 4 },
+  -- })
+  -- BonusActionBarFrame:SetBackdropColor(0, 0, 1, .5)
 
   -- Move cast bar
   CastingBarFrame:ClearAllPoints()

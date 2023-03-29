@@ -69,4 +69,14 @@
     ChangeActionBarPage()
   </Binding>
 
+  <Binding name="SHAGUCONTROL8" description="Hold to toggle between actionbar 1 and 2" runOnUp="true">
+    if ( keystate == "down" ) then
+      CURRENT_ACTIONBAR_PAGE = 4
+    end
+    if ( keystate == "up" ) then
+      CURRENT_ACTIONBAR_PAGE = 1
+    end
+    ChangeActionBarPage()
+  </Binding>
+
 </Bindings>
