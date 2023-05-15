@@ -79,4 +79,13 @@
     ChangeActionBarPage()
   </Binding>
 
+  <Binding name="SHAGUCONTROL9" description="Hold to enable mouselook." runOnUp="true">
+    if ( keystate == "down" ) then
+      MouselookStart()
+    end
+    if ( keystate == "up" ) then
+      MouselookStop()
+    end
+  </Binding>
+
 </Bindings>
