@@ -36,6 +36,7 @@
   <Binding name="SHAGUCONTROL5" runOnUp="true">
     if ( keystate == "down" ) then
       local focus = GetMouseFocus();
+      focus = MultiBarBottomLeft
 
       DEFAULT_CHAT_FRAME:AddMessage("--------------------");
       DEFAULT_CHAT_FRAME:AddMessage(focus:GetName());
@@ -47,14 +48,45 @@
     end
   </Binding>
 
-  <Binding name="SHAGUCONTROL6" runOnUp="true">
+  <Binding name="PRINTFOCUSRECURSE" runOnUp="true" description="This is a test">
     if ( keystate == "down" ) then
+
       local current = GetMouseFocus();
 
       DEFAULT_CHAT_FRAME:AddMessage("--------------------");
       while (current ~= nil) do
-        DEFAULT_CHAT_FRAME:AddMessage(current:GetName());
+        DEFAULT_CHAT_FRAME:AddMessage(current:GetName() .. " on strat: " .. current:GetFrameStrata());
+
         current = current:GetParent();
+      end
+    end
+  </Binding>
+
+  <Binding name="PRINTFOCUS" runOnUp="true" description="This is a test">
+    if ( keystate == "down" ) then
+      local current = GetMouseFocus();
+      current = MultiBarBottomRight
+
+      DEFAULT_CHAT_FRAME:AddMessage("--------------------");
+      while (current ~= nil) do
+        local numPoints = current:GetNumPoints()
+        DEFAULT_CHAT_FRAME:AddMessage(current:GetName() .. " has " .. numPoints .. " points.");
+        
+        for i = 1, numPoints do
+            local point, relativeTo, relativePoint, offsetX, offsetY = current:GetPoint(i)
+            DEFAULT_CHAT_FRAME:AddMessage(string.format(
+              "Point %d: %s, %s, %s, %d, %d",
+              i,
+              point,
+              relativeTo and relativeTo:GetName() or "nil",
+              relativePoint,
+              offsetX,
+              offsetY
+            ))
+        end
+
+        current = current:GetParent();
+        current = nil
       end
     end
   </Binding>
